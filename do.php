@@ -3,24 +3,26 @@
     $arr=$_POST;
     //print_r($arr);Array ( [username] => root [face] => 1 [msg] => dd )
     $conn=mysqli_connect("localhost","root","root");
+    $qqurl="https://api.vvhan.com/api/qt?qq=";
+    if($arr['userqq']!='')
+    $qqurl.=$arr['userqq'];
+    else{
+        $qqurl.='1';
+    }
     if(!$conn)
     {
         die("数据库连接失败");
     }
     mysqli_select_db($conn,"liuyan");
-    mysqli_query($conn,"set names utf-8");
-    
-   if(htmlspecialchars($arr['username'])==''||htmlspecialchars($arr['msg'])==''||$arr['face']=='')
+    mysqli_query($conn,"set names utf8mb4");
+
+   if(htmlspecialchars($arr['username'])==''||htmlspecialchars($arr['msg'])=='')
     {
         echo "<script>alert('请填写完整的信息');location.href='message.php';</script>";
     }
-    else if(strlen(htmlspecialchars($arr['msg']))>150*3||strlen(htmlspecialchars($arr['username']))>3*8){
-        
-        echo "<script>alert('留言字数收到限制，字数最高限制是150个 or 昵称字数受到限制，请输入10个字之内的昵称');location.href='message.php';</script>";
-    }
     else
     {
-        $sql="insert into obj_message set name='".htmlspecialchars($arr['username'])."',head_image='".$arr['face']."',word='".htmlspecialchars($arr['msg'])."',time='".date("Y-m-d H-i-s")."'";
+        $sql="insert into obj_message set name='".$arr['username']."',head_image='".$qqurl."',word='".$arr['msg']."',time='".date("Y-m-d H-i-s")."',site='".$arr['usersite']."',email='".$arr['email']."'";
         $rst=mysqli_query($conn,$sql);
         if($rst)
         {

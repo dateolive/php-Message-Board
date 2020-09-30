@@ -17,7 +17,7 @@
 
 
 
-    if(isset($_POST['username']) && isset($_POST['password']) && $_POST['username']==="你的账号，其他文件中如果发现有root，请更正为你修改后的账号" && $_POST['password']==="填写你的密码")
+    if(isset($_POST['username']) && isset($_POST['password']) && $_POST['username']==="root" && $_POST['password']==="357159.")
     {
             $_SESSION['username']=$_POST['username'];    
             header('Location:skip.php?url=admin.php&info=登录成功，正在跳转中');
@@ -44,6 +44,7 @@ else
 <html lang="zh-CN">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" href="css_login/style.css">
 	<title>登录界面</title>
 	</head>
@@ -61,6 +62,7 @@ else
                 <input type="password" name="password" />
             </label>
             <label>
+                
             <input type="text" name="yzm" placeholder="请输入图片中的验证码">
             <img src="yzm.php"  onclick="this.src='yzm.php?'+new Date().getTime();" alt="" width="100" height="50">
             </label>

@@ -1,0 +1,148 @@
+#contact-area {
+    padding: 110px 0 120px;
+  }
+
+  .contact-box {
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 50px 50px 35px;
+    background-color: #fff;
+    border-radius: 6px;
+  }
+
+  .contact-box input {
+    height: 50px;
+    border: 1px solid #f7f6f5;
+    font-size: 15px;
+    background-color: #f7f6f5;
+    font-weight: 500
+  }
+
+  .contact-box textarea {
+    border: 1px solid #f7f6f5;
+    padding-top: 10px;
+    background-color: #f7f6f5;
+    font-size: 15px;
+    font-weight: 500
+  }
+
+  .contact-box button {
+    background-color: #325eff;
+    border: 0;
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: 0;
+    font-weight: 500;
+    font-size: 15px
+  }
+
+  .contact-box button:hover {
+    background-color: #0f39cf;
+  }
+
+  .info {
+  margin: 2em 0;
+  font-size: 16px;
+  line-height: 1;
+  position: relative;
+  text-align: center;
+}
+.info .col {
+  display: inline-block;
+  padding: 0 20px;
+  position: relative;
+  background: transparent;
+  z-index: 2;
+}
+.info .col .count {
+  font-size: 1.375rem;
+  color: #555;
+  font-weight: inherit;
+}
+  .vlist {
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+  .vcard {
+    list-style: none;
+    word-break: break-all;
+  }
+
+  .vcomment-body {
+    padding: 2em .5em 2em;
+    border-top: 1px solid rgba(150, 150, 150, .08);
+  }
+  @media screen and (max-width: 600px) {
+  .vcomment-body {
+      padding:1em 1em 1em;
+      border-top:0 !important
+  }
+}
+  .vcard .vcomment-body .vhead {
+    line-height: 1;
+    display: block;
+    margin-bottom: .3em;
+    position: relative;
+  }
+
+  .vcard .vcomment-body .vavatar {
+    margin-right: 1em;
+    margin-top: .1em;
+    display: inline-block;
+    height: 36px;
+    width: 36px;
+    position: absolute;
+    top: 0;
+    border-radius: 50%;
+  }
+  .vater{
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    float: right;
+    background: transparent;
+    color: #2196f3;
+    font-size: .9225em;
+    padding: .2em 1em;
+    line-height: 1.2;
+    cursor: pointer;
+    word-break: keep-all;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+  .vcard .vcomment-body .vhead .vmeta-info {
+    margin: 0 0 0 48px;
+  }
+
+  .vcard .vcomment-body .vhead .vname {
+    font-weight: bolder;
+    font-size: 1em;
+    color: rgba(0, 0, 0, .7);
+  }
+  
+  .vcard .vcomment-body .vhead .spacer {
+    color: #ccc;
+    margin-left: .3em;
+    margin-right: .3em;
+  }
+
+  .vcard .vcomment-body .vhead .vtime {
+    color: #a9a4a4;
+    display: inline-block;
+    font-weight: normal;
+    font-size: 90%;
+  }
+
+  .vcard .vcomment-body .text-wrapper {
+    overflow: hidden;
+    box-sizing: border-box;
+    margin-left: 48px;
+  }
+  .vcard .vcomment-body .text-wrapper .vcomment {
+    position: relative;
+    overflow: auto;
+  }
