@@ -30,8 +30,10 @@
     
     }
     //imagestring($img,5,0,0,'abcd',$color_word);
-    imagettftext($img,20,rand(-5,5),rand(5,15),rand(30,35),$color_point,'font\dungeon.TTF',$string);
+    imagettftext($img,20,rand(-5,5),rand(5,15),rand(30,35),$color_point,'./font/dungeon.TTF',$string);
+    
     header("Content-type:image/jpeg");
+    ob_clean();
     imagejpeg($img);
     imagedestory($img);
 
