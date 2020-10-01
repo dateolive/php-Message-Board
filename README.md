@@ -7,6 +7,7 @@
 - 添加表情包
 - 自动拉取qq头像
 - 后台删除留言
+- 图片懒加载
 - .....
 
 [效果预览](https://imapi.datealive.top/liuyan/message.php)
