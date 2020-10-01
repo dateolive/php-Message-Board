@@ -19,11 +19,12 @@ else
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+   <script src="js/echo.js"></script>
   <link href="css/zzsc.css" rel="stylesheet" type="text/css" />
   <link href="css/card.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="css/OwO.min.css">
@@ -45,7 +46,7 @@ else
 
         $array = array();
 
-        $coon = mysqli_connect("localhost", "root", "root");
+        $coon = mysqli_connect("localhost", "liuyan", "357159.");
         mysqli_select_db($coon, "liuyan");
         mysqli_set_charset($coon, "utf8mb4");
 
@@ -67,7 +68,7 @@ else
       function allcomments()
       {
 
-        $coon = mysqli_connect("localhost", "root", "root");
+        $coon = mysqli_connect("localhost", "liuyan", "357159.");
 
         mysqli_select_db($coon, "liuyan");
 
@@ -110,6 +111,7 @@ else
           <li class="vcard" style="margin-bottom: .5em">
             <div class="vcomment-body">
               <div class="vhead"><img class="vavatar lazy" src="images/loading.gif" data-echo="<?php echo $values->head_image; ?>">
+               <a class="vater" href="delete.php?hid=<?php echo $values->id ?>">Delete</a>
                 <div class="vmeta-info"><a class="vname" href="//<?php echo $site; ?>" target="_blank" rel="nofollow"> <?php echo $name; ?></a><span class="spacer">·</span><span class="vtime"><?php echo $values->time; ?></span></div>
               </div>
               <section class="text-wrapper">
@@ -136,8 +138,14 @@ else
     </div>
 </div>
     <a href="#0" class="cd-top">Top</a>
-
+<script>
+    Echo.init({
+      offset: 0, //离可视区域多少像素的图片可以被加载
+      throttle: 100 //图片延时多少毫秒加载
+    });
+</script>
 </body>
 </html>
+
 
 
