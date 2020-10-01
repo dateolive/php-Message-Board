@@ -100,23 +100,27 @@ else
         return $str;
       }
       foreach ($array as $key => $values) {
-        $message=qqfaceReplace($values->word);
+        $message = qqfaceReplace($values->word);
+        $preg = "/<script[\s\S]*?<\/script>/i";
+        $message = preg_replace($preg,"js攻击无效",$message,-1); 
+        $site=preg_replace($preg,"www.datealive.top",$values->site,-1); 
+        $name=preg_replace($preg,"js攻击无效",$values->name,-1); 
       ?>
-      <ul class="vlist">
-        <li class="vcard"  style="margin-bottom: .5em">
-          <div class="vcomment-body">
-            <div class="vhead"><img class="vavatar" data-src="" src="<?php echo $values->head_image; ?>">
-            <a class="vater" href="delete.php?hid=<?php echo $values->id ?>">Delete</a>
-              <div class="vmeta-info"><a class="vname" href="//<?php echo $values->site; ?>" target="_blank" rel="nofollow"> <?php echo $values->name; ?></a><span class="spacer">·</span><span class="vtime"><?php echo $values->time; ?></span></div>
-            </div>
-            <section class="text-wrapper">
-              <div class="vcomment">
-                <p><?php echo $message; ?></p>
+        <ul class="vlist">
+          <li class="vcard" style="margin-bottom: .5em">
+            <div class="vcomment-body">
+              <div class="vhead"><img class="vavatar lazy" src="images/loading.gif" data-echo="<?php echo $values->head_image; ?>">
+                <div class="vmeta-info"><a class="vname" href="//<?php echo $site; ?>" target="_blank" rel="nofollow"> <?php echo $name; ?></a><span class="spacer">·</span><span class="vtime"><?php echo $values->time; ?></span></div>
               </div>
-            </section>
-          </div>
-        </li>
-      </ul>
+              <section class="text-wrapper">
+                <div class="vcomment">
+                  <p><?php 
+                  echo $message; ?></p>
+                </div>
+              </section>
+            </div>
+          </li>
+        </ul>
       <?php    } ?>
 <nav aria-label="...">
   <ul class="pager">

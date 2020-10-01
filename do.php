@@ -15,14 +15,20 @@
     }
     mysqli_select_db($conn,"liuyan");
     mysqli_query($conn,"set names utf8mb4");
-
-   if(htmlspecialchars($arr['username'])==''||htmlspecialchars($arr['msg'])=='')
+    function avoidhit($str){
+        //$str = trim($str);  //清理空格  
+        //$str = strip_tags($str);   //过滤html标签  
+          //将字符内容转化为html实体  
+        $str = addslashes($str);  //防止SQL注入
+        return $str;
+    }
+   if(avoidhit($arr['username'])==''||avoidhit($arr['msg'])=='')
     {
         echo "<script>alert('请填写完整的信息');location.href='message.php';</script>";
     }
     else
     {
-        $sql="insert into obj_message set name='".$arr['username']."',head_image='".$qqurl."',word='".$arr['msg']."',time='".date("Y-m-d H-i-s")."',site='".$arr['usersite']."',email='".$arr['email']."'";
+        $sql="insert into obj_message set name='".avoidhit($arr['username'])."',head_image='".avoidhit($qqurl)."',word='".avoidhit($arr['msg'])."',time='".date("Y-m-d H-i-s")."',site='".avoidhit($arr['usersite'])."',email='".avoidhit($arr['email'])."'";
         $rst=mysqli_query($conn,$sql);
         if($rst)
         {
