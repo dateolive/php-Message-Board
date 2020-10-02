@@ -100,13 +100,21 @@ else
         $str = preg_replace ( "[\[em_([0-9]*)\]]", "<img src=\"/arclist/$1.gif\" />", $str );
         return $str;
       }
-      foreach ($array as $key => $values) {
-        $message = qqfaceReplace($values->word);
-        $preg = "/<script[\s\S]*?<\/script>/i";
-        $message = preg_replace($preg,"js攻击无效",$message,-1); 
+      function isImgs($str){
+            $preg = '/<img.*?src=/';
+            return preg_match($preg,$str);
+        }
+        foreach ($array as $key => $values) {
+          $message=$values->word;
+       // $preg = "/<script[\s\S]*?<\/script>/i";
+   
+        /*$message = preg_replace($preg,"js攻击无效",$message,-1); 
         $site=preg_replace($preg,"www.datealive.top",$values->site,-1); 
-        $name=preg_replace($preg,"js攻击无效",$values->name,-1); 
-      ?>
+        $name=preg_replace($preg,"js攻击无效",$values->name,-1); */
+        if(!isImgs($message)){
+            $message=htmlspecialchars($message);
+        }
+        ?>
         <ul class="vlist">
           <li class="vcard" style="margin-bottom: .5em">
             <div class="vcomment-body">
