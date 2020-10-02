@@ -111,8 +111,12 @@ else
         /*$message = preg_replace($preg,"js攻击无效",$message,-1); 
         $site=preg_replace($preg,"www.datealive.top",$values->site,-1); 
         $name=preg_replace($preg,"js攻击无效",$values->name,-1); */
+         $name=$values->name;
+        $site=$values->site;
         if(!isImgs($message)){
             $message=htmlspecialchars($message);
+            $name=htmlspecialchars($name);
+            $site=htmlspecialchars($site);
         }
         ?>
         <ul class="vlist">
