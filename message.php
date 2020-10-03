@@ -26,6 +26,10 @@ header('conten-type:text/html;charset=utf-8');
 <body>
   <div class="main">
     <div class="container">
+    
+    <canvas id="canvas" width="1200px" height="200px" style="position:absolute;top:0;left:0;">
+            </canvas>
+
       <?php
       function comment($pageNum = 1, $pageSize = 5)
       {
@@ -89,25 +93,15 @@ header('conten-type:text/html;charset=utf-8');
         $str = preg_replace("[\[em_([0-9]*)\]]", "<img src=\"/arclist/$1.gif\" />", $str);
         return $str;
       }
-     function isImgs($str){
-            $preg = '/<img.*?src=/';
-            return preg_match($preg,$str);
-        }
-        foreach ($array as $key => $values) {
-          $message=$values->word;
-       // $preg = "/<script[\s\S]*?<\/script>/i";
-   
-        /*$message = preg_replace($preg,"js攻击无效",$message,-1); 
-        $site=preg_replace($preg,"www.datealive.top",$values->site,-1); 
-        $name=preg_replace($preg,"js攻击无效",$values->name,-1); */
-         $name=$values->name;
-        $site=$values->site;
-        if(!isImgs($message)){
-            $message=htmlspecialchars($message);
-            $name=htmlspecialchars($name);
-            $site=htmlspecialchars($site);
-        }
-        ?>
+
+
+      foreach ($array as $key => $values) {
+        $message = qqfaceReplace($values->word);
+        $preg = "/<script[\s\S]*?<\/script>/i";
+        $message = preg_replace($preg, "js攻击无效", $message, -1);
+        $site = preg_replace($preg, "www.datealive.top", $values->site, -1);
+        $name = preg_replace($preg, "js攻击无效", $values->name, -1);
+      ?>
         <ul class="vlist">
           <li class="vcard" style="margin-bottom: .5em">
             <div class="vcomment-body">
@@ -116,8 +110,8 @@ header('conten-type:text/html;charset=utf-8');
               </div>
               <section class="text-wrapper">
                 <div class="vcomment">
-                  <p><?php 
-                  echo $message; ?></p>
+                  <p><?php
+                      echo $message; ?></p>
                 </div>
               </section>
             </div>
@@ -173,6 +167,107 @@ header('conten-type:text/html;charset=utf-8');
       offset: 0, //离可视区域多少像素的图片可以被加载
       throttle: 100 //图片延时多少毫秒加载
     });
+  </script>
+  <script>
+    (function() {
+
+      class Barrage {
+        constructor(canvas) {
+          this.canvas = document.getElementById(canvas);
+          document.getElementById("canvas").width =  (window.innerWidth)*0.80;
+           document.getElementById("canvas").height=(window.innerHeight)*0.15;
+          let rect = this.canvas.getBoundingClientRect();
+          this.w = rect.right - rect.left;
+          this.h = rect.bottom - rect.top;
+          this.ctx = this.canvas.getContext('2d');
+          this.ctx.font = '20px Microsoft YaHei';
+          this.barrageList = [];
+        }
+
+        //添加弹幕列表
+        shoot(value) {
+          let top = this.getTop();
+          let color = this.getColor();
+          let offset = this.getOffset();
+          let width = Math.ceil(this.ctx.measureText(value).width);
+
+          let barrage = {
+            value: value,
+            top: top,
+            left: this.w,
+            color: color,
+            offset: offset,
+            width: width
+          }
+          this.barrageList.push(barrage);
+        }
+
+        //开始绘制
+        draw() {
+          if (this.barrageList.length) {
+            this.ctx.clearRect(0, 0, this.w, this.h);
+            for (let i = 0; i < this.barrageList.length; i++) {
+              let b = this.barrageList[i];
+              if (b.left + b.width <= 0) {
+                this.barrageList.splice(i, 1);
+                i--;
+                continue;
+              }
+              b.left -= b.offset;
+              this.drawText(b);
+            }
+          }
+          requestAnimationFrame(this.draw.bind(this));
+        }
+
+        //绘制文字
+        drawText(barrage) {
+          this.ctx.fillStyle = barrage.color;
+          this.ctx.fillText(barrage.value, barrage.left, barrage.top);
+        }
+
+        //获取随机颜色
+        getColor() {
+          return '#' + Math.floor(Math.random() * 0xffffff).toString(16);
+        }
+
+        //获取随机top
+        getTop() {
+          //canvas绘制文字x,y坐标是按文字左下角计算，预留30px
+          return Math.floor(Math.random() * (this.h - 30)) + 30;
+        }
+
+        //获取偏移量
+        getOffset() {
+          return +(Math.random() * 9).toFixed(1) + 1;
+        }
+
+      }
+
+      let barrage = new Barrage('canvas');
+      barrage.draw();
+
+      const textList = [
+        <?php
+        $imgpreg = '/<img[\s\S]*?src/';
+        $dmLists = '';
+        for ($i = 0; $i < $allNum; $i++) {
+          if (@preg_match($imgpreg, $array[$i]->word)||@$array[$i]->word==null) {
+            continue;
+          }
+          $dmLists .= json_encode($array[$i]->word);
+          if ($i < $allNum - 1)
+            $dmLists .= ',';
+        }
+        echo $dmLists;
+        ?>
+      ];
+
+      textList.forEach((t) => {
+        barrage.shoot(t);
+      })
+
+    })();
   </script>
 </body>
 
